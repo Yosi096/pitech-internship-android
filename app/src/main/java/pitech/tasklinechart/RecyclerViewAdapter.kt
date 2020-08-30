@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -13,9 +17,11 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import java.util.ArrayList
+import com.google.gson.JsonObject
+import org.json.JSONObject
+import kotlin.collections.ArrayList
 
-class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val itemtitles = arrayOf("Amonia", "Karbondioksida", "Temperature", "Kelembapan")
     private val sub1 = arrayOf("Waktu dalam jam")
     private val  sub2 = arrayOf("ppm", "ppm", "C","%")
@@ -48,6 +54,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
+//        val currentItem = dataLine[position]
         holder.textTitle.text =itemtitles[position]
         holder.textSub1.text =sub1[0]
         holder.textSub2.text = sub2[position]
@@ -56,19 +63,21 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
         holder.mpLineChart.setTouchEnabled(true)
         holder.mpLineChart.setPinchZoom(true)
         holder.mpLineChart.setDrawGridBackground(false)
+        holder.mpLineChart.setScaleEnabled(true)
+        holder.mpLineChart.isDragEnabled = true
+        holder.mpLineChart.animateX(2000)
 
         holder.mpLineChart.setNoDataText("No Data")
         holder.mpLineChart.setNoDataTextColor(Color.parseColor("#70551F"))
 
         val entries = ArrayList<Entry>()
-        entries.add(Entry(22f, 26f))
         entries.add(Entry(21f, 22f))
-        entries.add(Entry(32f, 28f))
-        entries.add(Entry(33f, 25f))
-        entries.add(Entry(35f, 26f))
-        entries.add(Entry(23f, 23f))
-        entries.add(Entry(23.2f, 23.2f))
-        entries.add(Entry(23.3f, 23.4f))
+//        entries.add(Entry(32f, 28f))
+//        entries.add(Entry(33f, 25f))
+        entries.add(Entry(35f, 29f))
+//        entries.add(Entry(23f, 23f))
+//        entries.add(Entry(23.2f, 23.2f))
+//        entries.add(Entry(23.3f, 23.4f))
 
         val lineDataSet = LineDataSet(entries, "data 1")
         lineDataSet.setDrawCircles(true)
@@ -95,9 +104,8 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
         ll2.lineColor = Color.parseColor("#B21B36")
 
         val xAxis: XAxis = holder.mpLineChart.xAxis
-        xAxis.setAvoidFirstLastClipping(true)
+//        xAxis.setAvoidFirstLastClipping(true)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f
         xAxis.setDrawGridLines(true)
         xAxis.setDrawAxisLine(false)
         xAxis.axisMinimum = 0f
@@ -121,5 +129,8 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
         holder.mpLineChart.isAutoScaleMinMaxEnabled = true
         holder.mpLineChart.notifyDataSetChanged()
         holder.mpLineChart.invalidate()
+    }
+
+    fun rewardAPI(){
     }
 }
