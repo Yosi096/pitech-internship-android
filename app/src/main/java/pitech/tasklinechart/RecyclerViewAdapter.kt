@@ -54,7 +54,8 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-//        val currentItem = dataLine[position]
+
+//      val currentItem = dataLine[position]
         holder.textTitle.text =itemtitles[position]
         holder.textSub1.text =sub1[0]
         holder.textSub2.text = sub2[position]
@@ -71,13 +72,8 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
         holder.mpLineChart.setNoDataTextColor(Color.parseColor("#70551F"))
 
         val entries = ArrayList<Entry>()
-        entries.add(Entry(21f, 22f))
-//        entries.add(Entry(32f, 28f))
-//        entries.add(Entry(33f, 25f))
-        entries.add(Entry(35f, 29f))
-//        entries.add(Entry(23f, 23f))
-//        entries.add(Entry(23.2f, 23.2f))
-//        entries.add(Entry(23.3f, 23.4f))
+        entries.add(Entry(Float, 22f))
+        entries.add(Entry(Float, 29f))
 
         val lineDataSet = LineDataSet(entries, "data 1")
         lineDataSet.setDrawCircles(true)
